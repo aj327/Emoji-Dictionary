@@ -12,8 +12,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     @IBOutlet weak var EmojiTable: UITableView!
     
-    var emojis = ["😬","😍","😘","🍆","🌚","💨","😉","🔥","😓","🏀","😱"]
-    
+    var emojis : [Emoji] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +22,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         EmojiTable.dataSource = self
         EmojiTable.delegate = self
         view.backgroundColor = UIColor.blue
+        emojis = makeEmojiArray()
 
     }
 
@@ -36,7 +36,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
        // tableView.deselectRow(at: indexPath, animated: true)
         let cell = UITableViewCell()
-        cell.textLabel?.text = emojis[indexPath.row]
+        let emoji = emojis[indexPath.row]
+        cell.textLabel?.text = emoji.emojiName
         return cell
     }
     
@@ -49,7 +50,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print(sender as Any)
         let defVC = segue.destination as! DefinitionViewController
-        defVC.emoji = sender as! String
+        defVC.emoji = sender as! Emoji
     }
     
     override func didReceiveMemoryWarning() {
@@ -57,6 +58,41 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Dispose of any resources that can be recreated.
     }
 
+    func makeEmojiArray() -> [Emoji]{
+        let emoji1 = Emoji()
+        emoji1.emojiName = "😬"
+        emoji1.originDaten = 2010
+        emoji1.definition = "Awkward smiley face"
+        emoji1.category = "Smiley"
+        
+        let emoji2 = Emoji()
+
+        emoji2.emojiName = "😍"
+        emoji2.originDaten = 2011
+        emoji2.definition = "Heart eyes smiley face"
+        emoji2.category = "Smiley"
+        
+        let emoji3 = Emoji()
+        
+        emoji3.emojiName = "🍆"
+        emoji3.originDaten = 2009
+        emoji3.definition = "Eggplant which can be phallic"
+        emoji3.category = "Plants"
+
+        let emoji4 = Emoji()
+        
+        emoji4.emojiName = "💨"
+        emoji4.originDaten = 2012
+        emoji4.definition = "Wind blowing emoji"
+        emoji4.category = "Inanimate Objects"
+
+        
+        
+
+        
+        return [emoji1, emoji2, emoji3, emoji4]
+    }
+    
 
 }
 
